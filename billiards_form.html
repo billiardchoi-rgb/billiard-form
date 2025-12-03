@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3쿠션 레슨 기록 앱</title>
+<style>
+    body { font-family: Arial; padding: 15px; background:#f4f4f4; }
+    h2 { text-align:center; }
+    .box { background:white; padding:15px; margin-bottom:20px; border-radius:10px; box-shadow:0 0 5px rgba(0,0,0,0.1); }
+    label { font-weight:bold; display:block; margin-top:10px; }
+    input, select, textarea { width:100%; padding:10px; border:1px solid #ccc; border-radius:5px; }
+    button { margin-top:20px; padding:12px; width:100%; background:#0099ff; color:white; border:none; border-radius:8px; font-size:18px; }
+</style>
+</head>
+<body>
+
+<h2>3쿠션 레슨 기록 앱</h2>
+<div class="box">
+    <label>성함</label>
+    <input id="name">
+
+    <label>연락처</label>
+    <input id="contact">
+
+    <label>나이</label>
+    <input id="age" type="number">
+
+    <label>현재 점수</label>
+    <select id="score">
+        <option>10 이하</option><option>11~15</option>
+        <option>16~20</option><option>21~25</option>
+        <option>26~30</option><option>31 이상</option>
+    </select>
+
+    <label>가장 어려운 샷</label>
+    <select id="hardshot">
+        <option>옆돌리기</option><option>앞돌리기</option>
+        <option>뒤돌리기</option><option>대회전</option>
+        <option>더블레일</option><option>횡단</option>
+    </select>
+
+    <label>레슨에서 배우고 싶은 내용</label>
+    <textarea id="lesson" rows="3"></textarea>
+
+    <button onclick="submitForm()">제출하기</button>
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwaKZVxq1tnH4TIEit2I4TW3knO7dxfppJK1XIhAcnnhXTxtSyMlJDW_EfeEB1m34I/exec";
+
+function submitForm(){
+    const data = {
+        name: document.getElementById("name").value,
+        contact: document.getElementById("contact").value,
+        age: document.getElementById("age").value,
+        score: document.getElementById("score").value,
+        hardshot: document.getElementById("hardshot").value,
+        lesson: document.getElementById("lesson").value,
+    };
+
+    fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    });
+
+    alert("제출 완료! 구글시트를 확인해보세요.");
+}
+</script>
+
+</body>
+</html>
